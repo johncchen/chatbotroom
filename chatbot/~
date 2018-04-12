@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>Chatbotroom</title>
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+      <form action="/training/" method="post"> 
+      {{ csrf_token }}
+      <div class="container">
+        <div class="jumbotron">
+      <p class="lead"><h4>請大家幫忙跟機器聊天，並根據機器的回答，做評分。<br>
+                        每次機器人會針對你輸入的回覆，回應多個不同的句子作為回答，請大家利用評分的方式，教會機器人如何回答。<br>
+                        評分規則：<br>
+                        每一句都需要評分，分數最低為 1 分，最高為 5 分。請根據整段對話歷史來評分。<br>
+                        如果有兩個或以上回應你覺得是同分，請給相同的分數。<br>
+                        評分標準：<br></p>
+      <p style="color:navy">
+                        score 1: 不合適，與對話沒有任何相關。<br>
+                        score 3: 普通，還算ok的回答。<br>
+                        score 5: 高度相關，有趣！<br></p>
+      <p>在機器人回應的右邊，你也可以輸入你覺得有趣的回答，這些資料未來會加進機器人回應的語庫中。<br></h4></p>
+        {% if not res_list0 and not res_str %}
+        <h3 style="color:navy">請問你想說什麼...</h3>
+        <input id="chat" type="text" name="question">
+        <input class="btn btn-lg btn-success" role="button" type="submit" value="送出">
+        {% endif %}
+      </div>
+      </form>
+
+      <form action="/result_save/" method="post"> 
+      {{ csrf_token }}
+      <div class="row marketing">
+        <div class="col-lg-6">
+          <h4>{{ res_list0 }}</h4>
+          {% if res_list0 %}
+          <input type="radio" name="score0" value="1" checked="true" />  1  </>
+          <input type="radio" name="score0" value="2" />  2  </>
+          <input type="radio" name="score0" value="3" />  3  </>
+          <input type="radio" name="score0" value="4" />  4  </>
+          <input type="radio" name="score0" value="5" />  5  <br />
+          {% endif %}
+
+          <h4>{{ res_list1 }}</h4>
+          {% if res_list1 %}
+          <input type="radio" name="score1" value="1" checked="true" />  1  </>
+          <input type="radio" name="score1" value="2" />  2  </>
+          <input type="radio" name="score1" value="3" />  3  </>
+          <input type="radio" name="score1" value="4" />  4  </>
+          <input type="radio" name="score1" value="5" />  5  <br />
+          {% endif %}
+
+          <h4>{{ res_list2 }}</h4>
+          {% if res_list2 %}
+          <input type="radio" name="score2" value="1" checked="true" />  1  </>
+          <input type="radio" name="score2" value="2" />  2  </>
+          <input type="radio" name="score2" value="3" />  3  </>
+          <input type="radio" name="score2" value="4" />  4  </>
+          <input type="radio" name="score2" value="5" />  5  <br />
+          {% endif %}
+
+          {% if res_list0 %}
+          <br><br>
+          <h4><p>或請輸入適合的回答</p></h4>
+          <input id="answer" type="text" name="suggestion">
+          <input type="hidden" name="score3" value="6" /></><br><br>
+          <input class="btn btn-lg btn-success" role="button" type="submit" value="送出">
+          {{ endif }}
+          </form>
+          
+          <form action="/training/" method="post">
+          {{ csrf_token }}
+          <h4>{{ res_str }}</h4>
+          <br>
+          {% if res_str %}
+          <input class="btn btn-lg btn-success" role="button" type="submit" value="繼續">
+          {{ endif }}
+          </form>
+        
+        </div>
+
+        <div class="col-lg-6">
+
+
+        {% for i in chat %}
+        <!-- Left-aligned -->
+        <div class="media">
+          <div class="media-left">
+            <img src="{{ STATIC_URL }}/chatbot.png" class="media-object" style="width:50px" alt="chatbot"/>
+          </div>
+          <div class="media-body">
+            <h4 class="media-heading">ChatBot</h4>
+            <p>{{ i }}</p>
+          </div>
+        </div>
+
+        <!-- Right-aligned -->
+        <div class="media">
+          <div class="media-body">
+            <h4 class="media-heading">You</h4>
+            <p>{{ loop.index }}</p>
+          </div>
+          <div class="media-right">
+            <img src="{{ STATIC_URL }}/you.png" class="media-object" style="width:50px" alt="you"/>
+          </div>
+        </div>
+        {% endfor %}
+
+      </div>
+
+</body>
+</html>

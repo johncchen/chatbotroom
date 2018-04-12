@@ -1,0 +1,16 @@
+certifi==2018.1.18
+chardet==3.0.4
+Django==2.0.4
+idna==2.6
+Jinja2==2.10
+MarkupSafe==1.0
+pbr==4.0.1
+pymongo==3.6.1
+pytz==2018.3
+requests==2.18.4
+six==1.11.0
+stevedore==1.28.0
+urllib3==1.22
+virtualenv==15.2.0
+virtualenv-clone==0.3.0
+virtualenvwrapper==4.8.2
