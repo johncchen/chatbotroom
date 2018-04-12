@@ -32,8 +32,16 @@
         <br><br>
         <input class="btn btn-lg btn-success" role="button" type="submit" value="送出">
         {% endif %}
-
       </form>
+
+      <form action="/index/" method="post">
+      <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+        {% if not res_list0 and not res_str %}
+        <br><br>
+        <input class="btn btn-md btn-info" role="button" type="submit" value="清除歷史紀錄">
+        {% endif %}
+      </form>
+
 
       <form action="/result_save/" method="post"> 
       <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">      

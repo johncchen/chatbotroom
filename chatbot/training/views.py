@@ -56,7 +56,7 @@ def training(request):
           print ("list")
      
           chat.append(request.POST['question'])
-          if len(chat) > 6:
+          if len(chat) > 8:
              chat = remove_element(chat)
 
           list2dict["chat"] = chat
@@ -70,11 +70,11 @@ def training(request):
           print ("str")
 
           chat.append(request.POST['question'])
-          if len(chat) > 6:
+          if len(chat) > 8:
              chat = remove_element(chat)
 
           chat.append(res_str)
-          if len(chat) > 6:
+          if len(chat) > 8:
              chat = remove_element(chat)
 
           list2dict["chat"] = chat
@@ -83,7 +83,7 @@ def training(request):
 
           creation_date = datetime.datetime.now()
 
-          dict = {"question" : chat[-5:], "res_list0" : { "res_list0" : "none", "score0" : 0 }, "res_list1" : { "res_list1" : "none", "score1" : 0 }, "res_list2" : { "res_list2" : "none" , "score2" : 0 }, "suggestion" : { "suggestion" : "none", "score3" : 0 }, "creation_date" : creation_date }
+          dict = {"question" : chat[-6:-1], "res_list0" : { "res_list0" : "none", "score0" : 0 }, "res_list1" : { "res_list1" : "none", "score1" : 0 }, "res_list2" : { "res_list2" : "none" , "score2" : 0 }, "suggestion" : { "suggestion" : "none", "score3" : 0 }, "creation_date" : creation_date }
   
           mongo_save(dict)
  
@@ -119,7 +119,7 @@ def result_save(request):
        chosen = suggestion
 
        chat.append(chosen)
-       if len(chat) > 6:
+       if len(chat) > 8:
           chat = remove_element(chat)
 
        list2dict["chat"] = chat
@@ -149,7 +149,7 @@ def result_save(request):
        chosen = chosen_list[random.randint(0,len(chosen_list)-1)]
 
        chat.append(chosen)
-       if len(chat) > 6:
+       if len(chat) > 8:
           chat = remove_element(chat)
 
        list2dict["chat"] = chat
@@ -164,7 +164,7 @@ def result_save(request):
 
     creation_date = datetime.datetime.now()
 
-    dict = {"question" : chat[-5:], "res_list0" : { "res_list0" : res_list[0], "score0" : score0 }, "res_list1" : { "res_list1" : res_list[1], "score1" : score1 }, "res_list2" : { "res_list2" : "res_list[2]" , "score2" : score2 }, "suggestion" : { "suggestion" : suggestion, "score3" : score3 }, "creation_date" : creation_date }
+    dict = {"question" : chat[-6:-1], "res_list0" : { "res_list0" : res_list[0], "score0" : score0 }, "res_list1" : { "res_list1" : res_list[1], "score1" : score1 }, "res_list2" : { "res_list2" : res_list[2] , "score2" : score2 }, "suggestion" : { "suggestion" : suggestion, "score3" : score3 }, "creation_date" : creation_date }
     mongo_save(dict)
     
     return render(request, 'training.html', {"chat" : chat})
